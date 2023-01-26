@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import com.example.StudentManagement.model.Students;
+import com.example.StudentManagement.model.Student;
 
 class StudentTests {
 		
@@ -15,11 +15,11 @@ class StudentTests {
 	@Nested
 	class GetStudentTests {
 		
-		private Students student;
+		private Student student;
 		
 		@BeforeEach
 		void beforeEach() {
-			student = new Students(1, "Rico", 24, "email@email.com", "123 address ave");
+			student = new Student(1, "Rico", 24, "email@email.com", "123 address ave");
 		}
 		
 		@Test
@@ -62,11 +62,11 @@ class StudentTests {
 	@Nested
 	class SetStudentTests {
 		
-		private Students student;
+		private Student student;
 		
 		@BeforeEach
 		void beforeEach() {
-			student = new Students();
+			student = new Student();
 		}
 		
 		@Test

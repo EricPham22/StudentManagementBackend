@@ -10,77 +10,89 @@ import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "Students",uniqueConstraints=@UniqueConstraint(columnNames={"email"}))
-public class Students {
+public class Student {
 	
 	@Id
 	@Column(name="STUDENT_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int STUDENT_ID;
+	private int studentId;
 	
 	@Column(name="Name")
-	private String Name;
+	private String name;
 	
 	@Column(name="Age")
-	private int Age;
+	private int age;
 	
 	@Column(name="Email")
-	private String Email;
+	private String email;
 	
 	@Column(name="Address")
-	private String Address;
+	private String address;
 	
-	public Students() {
+	public Student() {
 		
 	}
 	
-	public Students(int studentId, String name, int age, String email, String address) {
-		this.STUDENT_ID = studentId;
-		this.Name = name;
-		this.Age = age;
-		this.Email = email;
-		this.Address = address;
+	public Student(int studentId, String name, int age, String email, String address) {
+		this.studentId = studentId;
+		this.name = name;
+		this.age = age;
+		this.email = email;
+		this.address = address;
 		
 	}
 	
+	//Get Id
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public int getStudentId() {
-		return this.STUDENT_ID;
+		return this.studentId;
 	}
 	
+	//Get Name
 	public String getName() {
-		return this.Name;
+		return this.name;
 	}
 	
+	//Get Age
 	public int getAge() {
-		return this.Age;
+		return this.age;
 	}
 	
+	
+	//Get Email
 	public String getEmail() {
-		return this.Email;
+		return this.email;
 	}
 	
+	//Get Address
 	public String getAddress() {
-		return this.Address;
+		return this.address;
 	}
 	
+	//Set id
 	public void setStudentId(int studentId) {
-		this.STUDENT_ID = studentId;
+		this.studentId = studentId;
 	}
 	
+	//set name
 	public void setName(String name) {
-		this.Name = name;
+		this.name = name;
 	}
 	
+	//set age
 	public void setAge(int age) {
-		this.Age = age;
+		this.age = age;
 	}
 	
+	//set email
 	public void setEmail(String email) {
-		this.Email = email;
+		this.email = email;
 	}
 	
+	
+	//set address
 	public void setAddress(String address) {
-		this.Address = address;
+		this.address = address;
 	}
 }

@@ -11,55 +11,65 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.StudentManagement.model.Students;
+import com.example.StudentManagement.model.Student;
 import com.example.StudentManagement.service.StudentService;
 
 @RestController
+@RequestMapping("/students")
 public class StudentController {
 
 	@Autowired
 	private StudentService studentService;
 	
-	@GetMapping("/Students")
-	public ResponseEntity<List<Students>> findAllStudents() {
-			List<Students> students = studentService.getAllStudents();
-			return new ResponseEntity<>(students, HttpStatus.OK);
+	
+	//GET endpoint to get all students
+	@GetMapping("/get-all-students")
+	public ResponseEntity<?> findAllStudents() {
+			List<Student> student = studentService.getAllStudents();
+			return ResponseEntity.ok(student);
 	}
 	
-	@GetMapping(value="/Students/findById")
-	public ResponseEntity<Students> findStudentById(@RequestParam(value="id") int id) {
-			Students student = studentService.getStudentById(id);
-			return new ResponseEntity<>(student, HttpStatus.OK);
+	//GET endpoint to get a student by an id
+	@GetMapping(value="/find-by-id")
+	public ResponseEntity<?> findStudentById(@RequestParam(value="id") int id) {
+			Student student = studentService.getStudentById(id);
+			return ResponseEntity.ok(student);
 	}
 		 
-	@PostMapping(value="/Students/AddNewStudent")
-	public ResponseEntity<Students> addNewStudent(@RequestBody Students student) {
-			Students output = studentService.addStudent(student);
-			return new ResponseEntity<Students>(output, HttpStatus.OK);
+	//POST end point to add a new student
+	@PostMapping(value="/add-new-student")
+	public ResponseEntity<?> addNewStudent(@RequestBody Student student) {
+			Student output = studentService.addStudent(student);
+			return ResponseEntity.ok(output);
 	}
 	
-	@PostMapping(value="/Students/AddMultipleNewStudents")
-	public ResponseEntity<List<Students>> addMultipleNewStudents(@RequestBody List<Students> students) {
-			List<Students> output = studentService.addMultipleStudents(students);
-			return new ResponseEntity<List<Students>>(output, HttpStatus.OK);
+	//POST end point to add multiple students
+	@PostMapping(value="/add-multiple-new-students")
+	public ResponseEntity<?> addMultipleNewStudents(@RequestBody List<Student> student) {
+			List<Student> output = studentService.addMultipleStudents(student);
+			return ResponseEntity.ok(output);
 	}
 	
-	@PutMapping("Students/Update")
-	public ResponseEntity<Students> updateStudent(@RequestBody Students updatedStudent) {
-			Students student = studentService.updateStudentDetails(updatedStudent);
-			return new ResponseEntity<>(student, HttpStatus.OK);
+	//PUT end point to update a current students details
+	@PutMapping("/update")
+	public ResponseEntity<?> updateStudent(@RequestBody Student updatedStudent) {
+			Student student = studentService.updateStudentDetails(updatedStudent);
+			return ResponseEntity.ok(student);
 	}
 	
-	@DeleteMapping(value = "/Students/Delete")
-	public ResponseEntity<HttpStatus> deleteStudent(@RequestParam(value="id") int id) {
+	//DELETE end point to remove a student 
+	@DeleteMapping(value = "/delete")
+	public ResponseEntity<?> deleteStudent(@RequestParam(value="id") int id) {
 			studentService.removeStudent(id);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return ResponseEntity.ok().build();
 	}
 	
+	//Exception Handler that will return a 204 No Content Status when an exception is thrown from the service
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<HttpStatus> handleExceptions() {
